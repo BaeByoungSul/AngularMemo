@@ -1,0 +1,55 @@
+
+<div class="top-container">
+
+    <fieldset class="input-container">
+        <legend>로그인 정보</legend>
+
+        <form [formGroup]="myform" (ngSubmit)="onSignIn()">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="Enter your email" formControlName="email">
+                @if (myform.controls['email'].invalid) {
+                  <mat-error>{{getErrorMsg('email')}}</mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" placeholder="Enter your password" formControlName="password">
+                @if (myform.controls['password'].invalid) {
+                  <mat-error>{{getErrorMsg('password')}}</mat-error>
+                }
+            </mat-form-field>
+          
+            <div class="button-container">
+                <button mat-raised-button color="primary" >Login
+                    @if( loading$ | async )    {
+                        <mat-icon>
+                            <mat-spinner color="accent" diameter="20"> </mat-spinner>
+                        </mat-icon>
+                    }
+                    <!-- <mat-icon *ngIf="loading$ | async">                        
+                        <mat-spinner color="accent" diameter="20"> </mat-spinner>
+                    </mat-icon>   -->
+                </button>
+                <span style="flex-grow: 1;"></span>
+                <a routerLink="../register" skipLocationChange="true" >Register</a>
+            </div>
+            @if (serverError) {
+                <p></p>
+                <div class="alert alert-danger">
+                    {{ serverError }}
+                </div>
+            }
+
+        </form>
+    </fieldset>
+
+</div>
+
+    @if (currentUser$ | async; as user) {
+            <div>
+    <!-- <p>환영합니다, {{ user.email }}</p>
+    <button (click)="onLogout()">로그아웃</button> -->
+    </div>
+        <pre>{{ user | json }}</pre>
+    } 

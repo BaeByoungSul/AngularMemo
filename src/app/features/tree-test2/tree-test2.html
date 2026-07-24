@@ -1,0 +1,28 @@
+<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl" class="cdk-file-tree">
+  <cdk-tree-node
+    *cdkTreeNodeDef="let node"
+    class="cdk-tree-node"
+    [style.padding-left.px]="node.level * 20"
+  >
+    @if(!node.expandable){
+        <span class="tree-icon" >📄</span>
+    }
+    @if(node.expandable){
+        <span class="tree-icon" >📁</span>
+    }
+    
+    {{node.name}}
+  </cdk-tree-node>
+
+  <cdk-tree-node
+    *cdkTreeNodeDef="let node; when: hasChild"
+    class="cdk-tree-node"
+    [style.padding-left.px]="node.level * 20"
+  >
+    <button class="toggle-button" (click)="toggleNode(node)">
+      {{ treeControl.isExpanded(node) ? '▼' : '►' }}
+    </button>
+    <span class="tree-icon">📁</span>
+    {{node.name}}
+  </cdk-tree-node>
+</cdk-tree>

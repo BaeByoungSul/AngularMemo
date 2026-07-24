@@ -1,0 +1,77 @@
+<mat-toolbar color="primary" >
+    <button mat-icon-button (click)="menuIconClick()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    
+    <button mat-button (click)="navigateToHome()">
+      My Memo<mat-icon>home</mat-icon>
+    </button>
+    <!-- <span>홈</span> -->
+    <span class="example-spacer"></span>
+    <a mat-button routerLink="/memo-viewer"
+        routerLinkActive="active-link"
+        skipLocationChange="true">파일 노트</a>
+    <a mat-button routerLink="/note-mgt" 
+        routerLinkActive="active-link"
+        skipLocationChange="true">Firesotre 노트</a>
+
+
+    <button matButton [matMenuTriggerFor]="menu">Menu</button>
+    <!-- <mat-menu #menu="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu> -->
+
+
+    <mat-menu #menu="matMenu"> 
+    <a mat-menu-item routerLink="/memo-viewer" skipLocationChange="true">
+      <mat-icon>help_outline</mat-icon>
+      <span>파일노트 보기</span>
+    </a>
+    <!-- <a mat-menu-item routerLink="/data-editer" skipLocationChange="true">
+      <mat-icon>edit_document</mat-icon>
+      <span>Firebase 데이터 수정</span>
+    </a>
+    <a mat-menu-item routerLink="/data-viewer" skipLocationChange="true">
+      <mat-icon>view_list</mat-icon>
+      <span>Firebase 데이터 조회</span>
+    </a> -->
+    <!-- <a mat-menu-item routerLink="/note-editor" skipLocationChange="true">
+      <mat-icon>view_list</mat-icon>
+      <span>Firestore 노트테스트</span>
+    </a> -->
+    <a mat-menu-item routerLink="/note-mgt" skipLocationChange="true">
+      <mat-icon>view_list</mat-icon>
+      <span>Firestore노트 관리</span>
+    </a>      
+
+  </mat-menu>
+
+
+    
+  @if (currentUser$ |async ; as user ) {
+      <span class="user-display">{{ user.email }}</span>
+      <button mat-button
+        (click) = "onLogout()">Logout
+        <mat-icon>logout</mat-icon>
+      </button>
+  }@else {
+      <button mat-button 
+        routerLink="/auth/login"  >Login
+        <mat-icon>login</mat-icon>
+      </button>
+  }
+
+  @if (remainSecond$ | async; as seconds) {
+    @if (seconds > 0) {
+      <p>
+        <span style="font-size: 0.7em;">{{ formatTime(seconds) }}초</span>
+      </p>
+    } @else if (seconds === 0) {
+      <p style="font-size: 0.7em;">토큰이 방금 만료되었을 수 있습니다 (자동 갱신 중).</p>
+    } @else if (seconds === -1) {
+      <p style="font-size: 0.7em;">로그아웃 상태입니다.</p>
+    }
+  }
+
+</mat-toolbar>

@@ -1,0 +1,70 @@
+<div class="top-container">
+    <form class="sticky-form" [formGroup]="myform" (ngSubmit)="addCategory()">
+        <div class="form-control-group">
+            <!-- <label for="filename-input">파일명 :</label> -->
+            
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>범주명</mat-label>
+                <input matInput type="text" placeholder="Category 입력" formControlName="category">
+                <!-- @if (form.controls['email'].invalid) {
+                    <mat-error>{{emailErrors()}}</mat-error>
+                } -->
+            </mat-form-field>
+            <button mat-button type="submit" color="primary" [disabled]="myform.invalid">
+                범주 추가
+            </button>
+            @if (serverError) {
+                <p></p>
+                <div class="alert alert-danger">
+                    {{ serverError }}
+                </div>
+            }
+            
+        </div>
+    </form>
+
+    <ul style="list-style-type: none; padding: 0;">
+    @for (category of userData$ | async | keyvalue; track category.key) {
+        
+        <li style="margin-bottom: 10px; border: 1px solid #ccc; padding: 10px;">
+        <strong>{{ category.key }}</strong>:
+        <button mat-raised-button (click)="onAdd(category.key)">새 파일 추가</button>
+
+        @if (category.value && typeof category.value === 'object') {
+            <br>
+            <!-- <span style="font-weight: bold; margin-left: 15px;">- 파일 목록:</span> -->
+            <ul style="list-style-type: disc; margin-left: 10px;">
+            
+            @for (file of (category.value | keyvalue); track file.key) {
+                <li class="file-item-grouping">
+                    <div class="left-content">
+                        <button mat-raised-button (click)="onUpdate(category.key, file.key, file.value)">이름 변경</button>    
+                        <button mat-raised-button (click)="onDelete(category.key, file.key)">삭제</button>
+                    </div>
+                    <div>
+                        {{ file.key }}: 
+                        <span style="font-style: italic;">{{ file.value }}</span>
+                    </div>
+
+                </li>
+            }
+            </ul>
+            
+        } @else {
+            <span> ( 파일이 정의되지 않았습니다. )</span>
+        }
+        </li>
+
+    } @empty {
+        <li>로딩 중이거나 표시할 데이터가 없습니다.</li>
+    }
+    </ul>
+</div>
+
+
+<!-- <p *ngIf="!(userData$ | async)">데이터 로드 중...</p> -->
+
+@if (userData$ | async; as data) {
+    <pre style="visibility:hidden;">{{ data | json }}</pre>
+}
+

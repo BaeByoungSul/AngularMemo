@@ -1,0 +1,20 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+.user-display{
+  user-select: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  margin-right: 10px;  
+}
+/* 현재 활성화된 링크에 스타일을 적용합니다 */
+.active-link {
+  /* color: yellow !important;  */
+     /* color: #e0f7fa;
+  font-weight: bold;
+  border-bottom: 2px solid yellow; */
+
+  /* 원하는 스타일로 변경 가능 */
+  border-bottom: 2px solid lightskyblue;
+  opacity: 0.8;
+}

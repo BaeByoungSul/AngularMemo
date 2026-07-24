@@ -1,0 +1,27 @@
+.top-container{
+    /* width: 100%;
+    height: 100%; */
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: start;  */
+    margin: 20px;
+}
+.file-item-grouping {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+/* 왼쪽 컨텐츠 그룹 내의 간격 (선택 사항) */
+.left-content {
+    /* 텍스트와 span 사이 간격 등을 위해 */
+    display: flex;
+
+    align-items: center;
+    gap: 15px; 
+    margin-right: 10px;
+}

@@ -1,0 +1,129 @@
+.top-container {
+    display:flex;
+    flex-direction:column;
+    height: 90vh;
+    margin-left: 10px;
+    margin-right: 10px;
+    /* border: 1px solid lightgray; */
+}
+mat-sidenav-container {
+  flex:1;
+  border: 1px solid lightgray;
+}
+
+mat-sidenav-container > mat-sidenav{
+    flex: 1;
+    width: 280px;
+    /* border: 1px solid #ccc; */
+    border: 1px solid lightgray;
+    /* overflow-y: scroll; */
+     /* background-color:azure;  */
+}
+mat-sidenav-container > mat-sidenav-content{
+    /* 내부 요소(scroll-wrapper)가 사용 가능한 모든 세로 공간을 채우도록 Flexbox 설정 */
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    padding: 0; /* Material 기본 패딩 제거 또는 조정 */
+    flex: 1;
+    /* 세로 스크롤바 숨기기 (스크롤 기능 자체도 비활성화) */
+    overflow-y: hidden !important;
+   /* background-color: antiquewhite; */
+   /* background-color: transparent; */
+}
+.form-control-group {
+    display: flex;
+    align-items: center;
+}
+/* 3. 내부 div (스크롤 활성화 영역) */
+.scroll-wrapper2 {
+  /* Flexbox의 flex: 1; 을 사용하여 남은 모든 공간을 채우게 함 */
+  flex: 1; 
+  
+  /* 세로 스크롤만 활성화 (필요할 때만 스크롤바 표시) */
+  overflow-y: auto; 
+  
+  /* 가로 스크롤은 숨김 */
+  overflow-x: hidden; 
+  
+  /* (선택 사항) 내용 주변에 패딩을 다시 추가합니다. */
+  padding: 10px; 
+}
+.no-scroll {
+  /* overflow: hidden 적용하여 스크롤바 완전히 제거 */
+  overflow: hidden; 
+
+  /* 내부 요소(scroll-wrapper)가 사용 가능한 모든 세로 공간을 채우도록 Flexbox 설정 */
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 정렬 */
+  padding: 0; /* Material 기본 패딩 제거 또는 조정 */
+  
+}
+
+.view-area {
+  flex-grow: 1;
+  /* 내부 요소(scroll-wrapper)가 사용 가능한 모든 세로 공간을 채우도록 Flexbox 설정 */
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 정렬 */
+  padding-left: 10px;
+  padding-right: 15px; /* Material 기본 패딩 제거 또는 조정 */
+  /*상 우 하 좌*/
+  /* margin: 0 10px 0 10px ;  */
+  
+  overflow-y: hidden; 
+
+}
+.view-item{
+  flex-grow: 1;
+  border: 1px solid #ccc; 
+  overflow-y:auto;
+}
+
+ng2-pdfjs-viewer {
+  /* 1. Flexbox 자식으로 작동하도록 display: block 지정 */
+  display: block; 
+  
+  /* 2. 남은 공간을 채우도록 flex-grow 지정 */
+  flex-grow: 1; 
+}
+.mat-tree-node {
+  /* cursor: pointer;  */
+  cursor: grab;
+}
+/* 컴포넌트 CSS 파일 (.css 또는 .scss) */
+
+/* 1. 노드에 마우스를 올렸을 때의 배경색 (선택 사항) */
+.mat-tree-node:hover {
+  background-color: #f0f0f0; /* 연한 회색 */
+}
+
+/* 2. 노드가 포커스를 받았을 때의 배경색 */
+/* 사용자가 키보드 탐색 시 유용하며, 클릭 후에도 유지될 수 있음 */
+.mat-tree-node:focus {
+  background-color: #c9e6ff; /* 연한 파란색 */
+  outline: none; /* 브라우저 기본 포커스 테두리 제거 */
+}
+
+/* 3. 특정 선택 상태 클래스에 대한 스타일 (가장 중요) */
+/* 아래 2단계에서 추가할 사용자 정의 'selected' 클래스에 스타일을 적용합니다. */
+.mat-tree-node.is-selected {
+  background-color: #3f51b5; /* Material Primary 색상 */
+  color: white; /* 텍스트 색상 변경 */
+  font-weight: bold;
+}
+
+
+.sticky-form {
+  /* sticky 속성으로 스크롤 컨테이너의 상단에 고정 */
+  position: sticky; 
+  top: 0; 
+  
+  /* 고정된 폼이 다른 요소 위에 나타나도록 z-index 설정 (선택 사항) */
+  z-index: 10; 
+  
+  /* 배경색을 지정하여 콘텐츠를 가리지 않도록 함 */
+  background-color: #ffffff; 
+  padding: 10px;
+  /* border-bottom: 1px solid #ccc; */
+}
+
+

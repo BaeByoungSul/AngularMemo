@@ -1,0 +1,116 @@
+how to create simple angular project with vscode ?
+
+1. ng new my-first-angular-app
+2. 편집 vs code 
+  >>  code .
+3. 실행 
+  >> ng serve --open
+
+
+1. 프로젝트 생성 : 
+   --. ng new bbs-angular-app  
+
+2. 
+   --. ng add @angular/material
+   --. npm install @auth0/angular-jwt
+
+3. app.config.ts 파일 편집: httpClient, JwtModule
+
+4. 폴더 생성 :  
+  --. src: assets , environments  
+  --. src/app : core, features, shared 
+
+5. core 및 shared 복사해서 붙혀넣기
+
+5. Home 화면들 만들기
+6. 권한 모듈추가 및 component 추가
+
+ng g s core/auth
+ng g s core/SapService
+ng g s core/DbService
+ng g s core/BusyService
+ng g s core/JsonPlaceService
+
+ng generate guard core/Auth
+
+ng g interceptor core/interceptors/error-interceptor
+
+ng g m shared
+ng g m features/auth  --routing
+ng g m features/zjg    --routing
+ng g m features/huizhou  --routing
+
+ng g c shared/header
+ng g c shared/input-dialog
+ng g c shared/components/http-error
+ng g c shared/firebase-test
+
+
+
+ng g c features/auth/components/login
+ng g c features/auth/components/register
+ng g c features/auth/components/forgot-password
+ng g c features/auth/components/verify-user
+ng g c features/auth/components/reset-passord
+
+ng g c features/huizhou/components/huizhou-dashboard
+ng g c features/huizhou/components/huizhou-100
+ng g c features/huizhou/components/huizhou-110
+
+
+ng g c features/zjg/components/zjg-dashboard
+ng g c features/zjg/components/zjg-sapstock
+ng g c features/zjg/components/zjg-100
+
+
+ng g c  features/main/home-dashboard
+ng g c  features/main/components/status-cards
+ng g c  features/main/components/file-upload
+ng g c  features/main/components/file-download
+ng g c  features/main/components/file-explore
+ng g c  features/main/components/db-service-test
+ng g c  features/main/components/sap-service-test
+ng g c  features/main/components/sap-service-test2
+ng g c  features/main/components/google-map
+ng g c  features/main/components/rxjs-test
+ng g c  features/main/components/paste-test
+ng g c  features/main/components/pdfview-test
+
+
+
+ng g c  features/main/dashboard/dashboard-layout
+ng g c  features/main/dashboard/user-summary
+ng g c  features/main/dashboard/status-cards
+ng g c  features/main/dashboard/data-chart
+
+ng g c  features/main/menu/main-menu
+ng g c  features/main/menu/zjg-menu
+ng g c  features/main/menu/huizhou-menu
+
+
+
+Component Toolbar is standalone, and cannot be declared in an NgModule. Did you mean to import it instead?
+
+  --. ng generate module features/auth  --routing
+  --. ng g c features/auth/components/login
+  --. ng g c features/auth/register
+
+  --. ng g c features/components/home
+
+  --. ng g c features/dashboard/components/zjg-dashboard
+
+4. app.routes 및 auth-routing-module 편집
+
+4.. 권한별 화면들 만들기
+
+
+  --. ng g c shared/components/header
+
+ng generate module auth --route auth --module app.module
+
+ng generate component features/auth/components/login
+ng generate component features/auth/components/forgot-password
+ng generate component features/auth/components/reset-password
+ng generate component features/auth/components/verify-user
+
+ng generate component auth/components/register

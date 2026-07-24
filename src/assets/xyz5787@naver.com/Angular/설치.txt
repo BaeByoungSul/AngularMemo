@@ -1,0 +1,11 @@
+1. Node.js  
+  >>  Standalone binary (zip)다운로드 받아서 ( c:\node_v22 ) 폴더에 압축 해제
+  >> 시스템 환경 변수 Path에 추가
+2. VS Code
+3. Angular CLI
+
+
+1. npm install 보안 경고가 나타나서 아래 명령 실행 후 angular cli 설치
+   >> npm config set strict-ssl false
+   >> npm install -g @angular/cli
+

@@ -1,0 +1,66 @@
+<div class="top-container">
+    <fieldset class="input-container">
+        <legend>사용자 정보</legend>
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Enter your email" formControlName ="email">
+                @if (myForm.controls['email'].invalid) {
+                  <mat-error>{{getErrorMsg("email")}}</mat-error>
+                }
+            </mat-form-field>
+            <div class="password-container" formGroupName="passwordGroup">
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password"
+                        placeholder="Enter your password" formControlName="password">
+                    @if (this.myForm.controls.passwordGroup.controls.password.invalid) {
+                        <mat-error>{{getErrorMsg("passwordGroup.password")}}</mat-error>
+                    }
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password"
+                        placeholder="Enter your confirm password" formControlName="confirmPassword">
+                    @if (this.myForm.controls.passwordGroup.controls.confirmPassword.invalid) {
+                        <mat-error>{{getErrorMsg("passwordGroup.confirmPassword")}}</mat-error>
+                    }
+                </mat-form-field>
+                @if ( this.myForm.controls.passwordGroup.invalid && 
+                      this.myForm.controls.passwordGroup.hasError('mustMatch') &&
+                      this.myForm.controls.passwordGroup.controls.confirmPassword.dirty &&
+                      (this.myForm.controls.passwordGroup.dirty || this.myForm.controls.passwordGroup.touched)) {
+                    <mat-error>Passwords must match</mat-error>
+                }
+            </div>
+
+            <div class="button-container">
+                <button mat-raised-button color="primary" >Register
+                    @if( loading$ | async )    {
+                        <mat-icon>
+                            <mat-spinner color="accent" diameter="20"> </mat-spinner>
+                        </mat-icon>
+                    }
+                    <!-- <mat-icon *ngIf="loading$ | async">                        
+                        <mat-spinner color="accent" diameter="20"> </mat-spinner>
+                    </mat-icon>   -->
+                </button>
+                <span style="flex-grow: 1;"></span>
+                <a routerLink="../login" skipLocationChange="true"  >Cancel</a>
+            </div>
+            @if(isSubmitOk){
+                <h2>정상적으로 등록이 되었습니다.</h2>
+                <h3>이메일을 확인하여 메일 내용에 있는  링크를 클릭해주세요</h3>
+            }
+            @if (errorMessage) {
+                <p></p>
+                <div class="alert alert-danger">
+                    {{ errorMessage }}
+                </div>
+            }
+
+        </form>    
+    </fieldset>
+
+</div>

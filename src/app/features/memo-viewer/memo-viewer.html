@@ -1,0 +1,91 @@
+<div class="top-container">
+    <mat-sidenav-container>
+        <mat-sidenav [mode]="sideNavMode" opened="{{showSideMenu}}">      
+
+            <mat-tree #tree 
+                [dataSource]="userTreeData" 
+                [childrenAccessor]="childrenAccessor"
+                >
+            <!-- This is the tree node template for leaf nodes -->
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding 
+                (click)="onNodeClick(node)">
+                
+                <!-- use a disabled button to provide padding for tree leaf -->
+                <button matIconButton disabled></button>
+                {{node.value}}
+            </mat-tree-node>
+            <!-- This is the tree node template for expandable nodes -->
+            <!-- isExpandable    [isExpanded]="true" -->
+            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" 
+                matTreeNodePadding matTreeNodeToggle
+                [cdkTreeNodeTypeaheadLabel]="node.name">
+                <button matIconButton matTreeNodeToggle 
+                        [attr.aria-label]="'Toggle ' + node.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                    {{tree.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+                </button>
+                {{node.name}}
+            </mat-tree-node>
+            </mat-tree>
+
+        </mat-sidenav>
+        <mat-sidenav-content  >
+            <form class="sticky-form" [formGroup]="myform" (ngSubmit)="loadFile()">
+                <div class="form-control-group">
+                    <!-- <label for="filename-input">파일명 :</label> -->
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>범주명</mat-label>
+                        <input readonly="true" matInput type="text" placeholder="범주명" 
+                            formControlName="foldername">
+                        <!-- @if (form.controls['email'].invalid) {
+                            <mat-error>{{emailErrors()}}</mat-error>
+                        } -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" floatLabel="always">
+                        <mat-label>파일명</mat-label>
+                        <input matInput type="text" placeholder="파일명 입력" formControlName="filename">
+                        <!-- @if (form.controls['email'].invalid) {
+                            <mat-error>{{emailErrors()}}</mat-error>
+                        } -->
+                    </mat-form-field>
+                    <button mat-button type="submit" color="primary" [disabled]="myform.invalid">
+                        보기
+                    </button>
+                   
+                </div>
+            </form>
+
+            <div class="view-area">
+                @if (errorMessage$ ) {
+                    <div class="alert alert-danger">
+                        <strong>오류 발생:</strong> {{ errorMessage$ }}
+                    </div>
+                } 
+                @if (fileExtension === "docx") {
+                    <!-- <div  class="view-item" [innerHTML]="htmlContent" ></div> -->
+                    <div class="view-item" #docxContainer >
+
+                    </div>,
+                } @else if (fileExtension === "txt") {
+                    <pre class="view-item">{{ textContent }}</pre>
+                    <!-- <textarea class="view-item" 
+                        [(ngModel)]="textContent"
+                        readonly>
+                    </textarea> -->
+                } @else if (fileExtension === "pdf") {
+
+                    @if( pdfSrc$ | async ; as src  ){
+                        <ngx-extended-pdf-viewer  class="view-item"
+                            [src]="src"
+                            [textLayer]="true" >
+                        </ngx-extended-pdf-viewer>
+                    }
+                }
+            </div>
+        </mat-sidenav-content>
+
+    </mat-sidenav-container>
+</div>
+    

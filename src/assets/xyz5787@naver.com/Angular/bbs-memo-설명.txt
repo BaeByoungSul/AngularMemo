@@ -1,0 +1,29 @@
+. firebase console 접속해서 Realtime Database (데이터베이스), Authentication (사용자 인증) 서비스 이용
+  > Web 앱을 추가하면 Augular 사용할 환경변수 나타남
+
+. authGaurd: login상태가 아니면 /auth/login으로 이동 처리
+  > 문제: authGaurd에서 자동으로 login 처리가 된다.
+  > 원인: 토큰을 가져오는 부분에서 자동으로 토큰이 재발행되어서 나타나는 현상
+      >>  const tokenResultPromise = user.getIdTokenResult(true); >> const tokenResultPromise = user.getIdTokenResult(false);
+
+. realtime database 사용자 데이터  처리
+   > 문제: Firebase API called outside injection context 경고
+   > 원인: injection context 는 생성자나 컴포넌트 필드 이니셜라이저가 실행될 때 활성화.  
+              objectVal() authService$.user$에서 값이 방출될 때 실행되기 때문에 injection context가 비활성 상태일 수도 있다.
+   > 해결: 비동기 호출이어도 Injection Context를 사용할 수 있도록 함.  Injector 주입 및 runInInjectionContext 사용
+
+
+. docx-preview: 
+   > 문제: mammoth를 사용하니까  원본 그대로 보이지 않고 다른 경고도 나타남
+   > docx-preview를 사용해서 처리함
+
+. pdf viewer : ngx-extended-pdf-viewer 
+   > 문제: 초기 loading 시 render warning 발생, [textLayer]="true"를 넣어도 find 버튼이 활성화 되지 않음
+   > 이것 저것 해보다가 [scr]를 pdfSrc$!: Observable<Blob> async로 처리하니까 rendering 경고 메세지 없어짐
+                    @if( pdfSrc$ | async ; as src  ){
+                        <ngx-extended-pdf-viewer  class="view-item"
+                            [src]="src"
+                            [textLayer]="true" >
+                        </ngx-extended-pdf-viewer>
+                    }
+

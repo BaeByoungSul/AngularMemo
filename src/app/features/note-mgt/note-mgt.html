@@ -1,0 +1,76 @@
+<div class="top-container">
+    @if(showNoteList) {
+        <div class="note-list-container">
+            <h3 >
+                <mat-icon >event_note</mat-icon> 
+                <span>내 노트 목록</span>
+            </h3>
+            <button (click)="startAddMode()" >
+                <mat-icon>note_add</mat-icon>
+                <span>새 노트 작성</span>
+            </button>
+            @for (note of notes$ | async; track note.id) {
+                <div class="note-list-item"
+                    [class.selected]="note.id === selectedNote?.id" >
+                    <span class="note-title" (click)="selectNote(note)">
+                        {{ note.title }}
+                    </span>
+                    <!-- <button (click)="onDelete(note.id!)" class="btn-delete">🗑️</button> -->
+                    <button mat-button (click)="onDelete(note.id!)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            }@empty {
+                <p>노트가 없습니다.</p> 
+            }        
+        </div>
+    }
+
+    <div class="note-form-container">
+        <form class="note-form" [formGroup]="noteForm"  (ngSubmit)="onSubmit()">
+            
+            <label for="title">제목</label>
+            <input 
+                id="title" 
+                type="text" 
+                class="form-control" 
+                formControlName="title" 
+                placeholder="노트 제목을 입력하세요 (필수)"
+            >
+            @if (noteForm.controls['title'].invalid) {
+                <mat-error>{{getErrorMsg('title')}}</mat-error>
+            }
+        
+            <label for="content">내용</label>
+            <textarea 
+                id="content" 
+                class="form-control" 
+                formControlName="content" 
+                rows="30" 
+                placeholder="노트 내용을 입력하세요">
+            </textarea>
+ 
+            <div class="button-group">
+                <button type="submit" 
+                        class="btn btn-primary"
+                        [disabled]="noteForm.invalid">
+                    {{ selectedNote ? '수정 사항 저장' : '노트 추가' }}
+                </button>
+                @if(selectedNote){
+                    <button 
+                        (click)="startAddMode()" 
+                        class="btn btn-secondary">
+                    취소 및 새 노트 작성
+                    </button>
+                }
+                @if (statusMessage) {
+                    <div class="alert alert-danger validation-error">
+                        {{ statusMessage }}
+                    </div>
+                }
+            </div>
+        </form>
+
+       
+    </div>
+</div>

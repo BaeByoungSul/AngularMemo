@@ -1,0 +1,26 @@
+environment 설정: : angular.json파일
+    "configurations": {
+      "production": {
+        "fileReplacements": [
+          {
+            "replace": "src/environments/environment.ts",
+            "with": "src/environments/environment.prod.ts"
+          }
+        ],
+
+
+테스트 : ng serve --configuration production
+빌드: ng build  
+    or ng build --configuration production --aot 
+
+
+budgets 오류: angular.json파일
+
+"budgets": [
+  {
+    "type": "initial",
+    "maximumWarning": "2mb", // 경고 기준
+    "maximumError": "4mb" // 에러 기준
+  },
+  //...
+]

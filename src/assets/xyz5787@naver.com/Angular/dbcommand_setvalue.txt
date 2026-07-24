@@ -1,0 +1,68 @@
+import { Command, Parameter, ParameterValue } from './dto/Command';
+
+// Create a new Command object
+const myCommand: Command = {
+  commandName: 'GetCustomerById',
+  connectionName: 'DefaultConnection',
+  commandType: 1, // Example: 1 might represent a stored procedure
+  commandText: 'dbo.sp_GetCustomer',
+  parameters: [
+    {
+      parameterName: '@CustomerId',
+      dbDataType: 1, // Example: 1 might represent an integer
+      direction: 1,  // Example: 1 might represent input
+      headerCommandName: '',
+      headerParameter: ''
+    }
+  ],
+  parameterValues: [
+    [
+      {
+        parameterName: '@CustomerId',
+        parameterValue: '123'
+      }
+    ]
+  ]
+};
+
+console.log(myCommand);
+
+
+// Assuming you have form data or variables
+const nameFromInput = 'GetProductDetails';
+const idFromInput = '456';
+
+// Declare a new Command object
+const newCommand: Command = {
+  commandName: '',
+  connectionName: '',
+  commandType: 0,
+  commandText: '',
+  parameters: [],
+  parameterValues: [[]]
+};
+
+// Assign values to the properties
+newCommand.commandName = nameFromInput;
+newCommand.connectionName = 'DefaultConnection';
+newCommand.commandType = 2;
+newCommand.commandText = 'SELECT * FROM Products WHERE ProductId = @ProductId';
+
+// Add a parameter to the array
+const productParameter: Parameter = {
+  parameterName: '@ProductId',
+  dbDataType: 1,
+  direction: 1,
+  headerCommandName: '',
+  headerParameter: ''
+};
+newCommand.parameters.push(productParameter);
+
+// Add the parameter value
+const valueForParameter: ParameterValue = {
+  parameterName: '@ProductId',
+  parameterValue: idFromInput
+};
+newCommand.parameterValues[0].push(valueForParameter);
+
+console.log(newCommand);
